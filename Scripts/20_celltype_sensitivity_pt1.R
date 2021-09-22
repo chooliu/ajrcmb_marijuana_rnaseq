@@ -1,6 +1,7 @@
 # ==============================================================================
-# 18_celltype_sensitivity_pt1.R
+# 20_celltype_sensitivity_pt1.R
 # re-do pre-filtering, RUVSeq k on subjects with cell differentials available
+# (very similar code to script 18)
 # ==============================================================================
 
 

@@ -27,8 +27,10 @@ source("./Scripts/15_overenrichment_analysis.R")
 # validation / sensitivity analyses
 source("./Scripts/16_TvC_external_validation.R")
 source("./Scripts/17_rtPCR_validation.R")
-source("./Scripts/18_celltype_sensitivity_pt1.R")
-source("./Scripts/19_celltype_sensitivity_pt2.R")
+source("./Scripts/18_batch1_sensitivity_pt1.R")
+source("./Scripts/19_batch1_sensitivity_pt2.R")
+source("./Scripts/20_celltype_sensitivity_pt1.R")
+source("./Scripts/21_celltype_sensitivity_pt2.R")
 
 # metadata export for GEO
-source("./Scripts/20_export_for_GEO.R")
+source("./Scripts/22_export_for_GEO.R")

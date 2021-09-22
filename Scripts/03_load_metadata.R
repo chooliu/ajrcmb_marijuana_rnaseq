@@ -225,6 +225,7 @@ metadata %<>%
 
 
 
+
 # cytokine assay data, spirometry, and cell differentials (in three parts)
 # ------------------------------------------------------------------------------
 
@@ -266,6 +267,7 @@ assay_data_celldiff <-
 
 
 
+
 # manual cell diff additions, via
 # J.G. email 1 Jun 2020
 # ------------------------------------------------------------------------------
@@ -287,15 +289,25 @@ assay_data_fev <-
                            FEV1_FVC_082019, FEV1_FVC) ) %>%
   dplyr::select(ID, FEV1_pred, FVC_pred, FEVFVC)
 
+
+# absolute cell counts
+abs_cell_counts <-
+  read_excel("./Data/Subject_Metadata/BAL Vol Back Cell Counts Differentials MJ RNA Seq Cohort 090821.xlsx",
+             skip = 3) %>%
+  transmute(ID = `Patient ID...1`,
+            BALAbsCellYield = `# Cells in Millions`,
+            BALVolume_in = `BAL Volume In`,
+            BALVolume_out = `BAL Volume Back`,
+            BALPercentRecovery = `% Recovery`,
+            BALConc_final = BALAbsCellYield/BALVolume_out)
+
+# add to metadata
 metadata %<>%
   left_join(assay_data_celldiff, by = c("ID" = "CellTypeID"))
 metadata %<>%
   left_join(assay_data_fev)
-
-
-
-
-
+metadata %<>%
+  left_join(abs_cell_counts, by = "ID")
 
 
 
