@@ -25,24 +25,30 @@ Table1 <-
     `15* Race/Ethnicity (White)` = summaryCountPercent(RaceEth_White, "Checked", digits = 1),
     
     # note: other cell types all <1%
-    `20* % Differential Cell Types` = summaryBlankLine(),
+    `20* Cell Frequencies (%)` = summaryBlankLine(),
     `21* ... Monocyte/Macrophage` = summaryMedianIQR(CellType_mono_mac, na.rm = T),
     `22* ... Lymphocyte` = summaryMedianIQR(CellType_lymph, na.rm = T),
     `23* ... PMNs` = summaryMedianIQR(CellType_pmns, na.rm = T),
     `24* ... Airway` = summaryMedianIQR(CellType_airway, na.rm = T),
     `25* ... Eosinophils` = summaryMedianIQR(CellType_eos, na.rm = T),
+    
+    `30* BAL Yields` = summaryBlankLine(),
+    `31* ... BAL Volume Out (mL)` = summaryMedianIQR(BALVolume_out, na.rm = T),
+    `32* ... Concentration (Million Cells/mL)` = summaryMedianIQR(BALConc_final, digits = 2, na.rm = T),
+    `33* ... BAL % Recovery (Volume Out/In)` = summaryMedianIQR(BALPercentRecovery, na.rm = T)
 
     ) %>%
   gather(`Smoking Status`, values, 2:ncol(.)) %>%
   spread(Group, values) %>%
   mutate(`Smoking Status` = gsub("[0-9][0-9]\\*", "", `Smoking Status`)) %>%
   set_colnames(c("Smoking Status", "All",
-                 "Marijuana (M)", "Non-Smoker (C)", "Tobacco (T)")) %>%
-  dplyr::select(1, 3:5, 2)
+                 "Non-Smoker (C)", "Marijuana (M)", "Tobacco (T)")) %>%
+  dplyr::select(1, 4, 3, 5, 2)
 
 
 # statistical tests for table
 # ------------------------------------------------------------------------------
+
 lm(Age ~ Group, metadata_filtered) %>% anova
 fisher.test(metadata_filtered$Sex, metadata_filtered$Group)
 lm(BMI ~ Group, metadata_filtered) %>% anova
@@ -54,16 +60,15 @@ lm(log10(CellType_pmns + 1e-4) ~ Group, metadata_filtered) %>% anova
 lm(log10(CellType_airway + 1e-4) ~ Group, metadata_filtered) %>% anova
 lm(log10(CellType_eos + 1e-4) ~ Group, metadata_filtered) %>% anova
 
-
-
-
+lm(BALVolume_out ~ Group, metadata_filtered) %>% anova
+lm(BALConc_final ~ Group, metadata_filtered) %>% anova
+lm(BALPercentRecovery ~ Group, metadata_filtered) %>% anova
 
 
 
 
 # degree of MJ & Tobacco smoke exposure
 # ------------------------------------------------------------------------------
-
 
 # tobacco exposure
 exposures_T <-
