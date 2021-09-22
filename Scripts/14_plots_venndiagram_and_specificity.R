@@ -117,6 +117,6 @@ specificity_plot_A <-
         legend.spacing.x = unit(1, "pt"))
 
 
-ggsave("./FiguresTables/FigS6.png", width = 5, height = 5, dpi = 300)
-system('open "./FiguresTables/FigS6.png"')
+ggsave("./FiguresTables/FigS4.png", width = 5, height = 5, dpi = 300)
+system('open "./FiguresTables/FigS4.png"')
 

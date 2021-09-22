@@ -86,7 +86,7 @@ edger_normfact <- edgeR_fit_RUV$samples[filter_samples_rtpcr , 3]
 
 
 
-# plot each RT-PCR target (Figure S6)
+# plot each RT-PCR target (Figure S5)
 # ------------------------------------------------------------------------------
 dir.create("./FiguresTables/rtPCR")
 make_plots_and_tables_rtPCR <- function(gene_symbol, make_images = T) {
@@ -288,7 +288,7 @@ ggplot(data = rtPCR_data, aes(x = TBP, y = TBP_RNAseq)) +
   geom_point(alpha = 0.6) + xlab(expression(C[T])) + ylab("RNA-seq Counts") +
   theme_classic(),
 nrow = 1)
-ggsave("./FiguresTables/FigS7.png", width = 7.5, height = 2)
+ggsave("./FiguresTables/FigS5.png", width = 7.5, height = 2)
 
 ggboxplotWrapper(rtPCR_data, "Group", "`TBP-VIC`") +
   scale_color_manual(values = c("#1b9e77", "#d95f02", "#7570b3")) +
